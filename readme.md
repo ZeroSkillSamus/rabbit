@@ -2,23 +2,6 @@
 
 A simple Node.js API to decrypt encrypted embed sources, ready for Vercel deployment.
 
-<h2> Table of Contents </h2>
-
-- [Prerequisites](#prerequisites)
-- [Quick Start](#quick-start)
-    - [Installation](#installation)
-    - [Running the Server](#running-the-server)
-    - [API Routes](#api-routes)
-- [Deployment](#deployment)
-    - [Vercel](#vercel)
-    - [Docker](#docker)
-- [License](#license)
-
-
-## Prerequisites
-- [NodeJS](https://nodejs.org) (v14 or higher)
-- [Vercel CLI](https://vercel.com/cli) (optional, for local development)
-
 ## Quick Start
 
 Clone the repository and install dependencies
