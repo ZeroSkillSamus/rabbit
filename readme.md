@@ -26,7 +26,7 @@ Clone the repository and install dependencies
 ### Installation
 ```bash
 git clone https://github.com/eatmynerds/embed_decrypt.git
-cd embed_decrypt
+cd rabbit
 npm install
 ```
 
