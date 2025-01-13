@@ -1,0 +1,23 @@
+{
+  "name": "embed-decrypt",
+  "version": "1.0.0",
+  "description": "A Node.js API to decrypt encrypted embed sources",
+  "main": "src/main.js",
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "scripts": {
+    "start": "node src/main.js",
+    "dev": "nodemon src/main.js",
+    "vercel-build": "echo 'Building...'"
+  },
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "morgan": "^1.10.0",
+    "winston": "^3.11.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  }
+}
