@@ -43,7 +43,7 @@ app.get('/embed', async (req, res) => {
 	}
 
 	const embedSources = await handleEmbed(embed_url, referrer)
-	res.json(JSON.stringify(embedSources))
+	res.json(embedSources)
 })
 
 // For Vercel, we export the app instead of starting the server directly
