@@ -69,14 +69,15 @@ const handleEmbed = async (embedUrl, referrer) => {
 	}
 }
 
-const agent = new https.Agent({  
-  rejectUnauthorized: false
-});
+// const agent = new https.Agent({  
+//   rejectUnauthorized: false
+// });
 
 async function fetch_qualities(default_url) {
 	let iframeLinks = []
 	try {
-		let response = await axios.get(default_url,{ httpsAgent: agent })
+		// let response = await axios.get(default_url,{ httpsAgent: agent })
+		let response = await axios.get(default_url)
 		let resolutions = response.data.match(/(RESOLUTION=)(.*)(\s*?)(\s*.*)/g)
 		resolutions?.forEach((str) => {
 			let quality = str.split('\n')[0].split('x')[1]
