@@ -57918,6 +57918,7 @@ var getMeta = function(url) {
         case 2:
           txt = _a.sent();
           regx = /name="j_crt" content="[A-Za-z0-9]*/g;
+          console.log(txt)
           match = txt.match(regx)[0];
           content2 = match.slice(match.lastIndexOf('"') + 1);
           meta.content = content2 + "==";

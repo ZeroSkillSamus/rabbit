@@ -55,10 +55,8 @@ const handleEmbed = async (embedUrl, referrer) => {
 			}
 		)
 
-		let json_out = JSON.parse(output.trim())
-		console.log(json_out)
+		let json_out = getJsonFromHTML(output.trim())
 		let m3u8_links = await fetch_qualities(json_out['sources'][0]['file'])
-		console.log(m3u8_links)
 		return {
 			m3u8_links,
 			subtitles: json_out['tracks'],
@@ -69,25 +67,30 @@ const handleEmbed = async (embedUrl, referrer) => {
 	}
 }
 
-// const agent = new https.Agent({  
-//   rejectUnauthorized: false
-// });
+function getJsonFromHTML(html) {
+	const htmlEnd = html.indexOf('</html>');
+	const jsonStr = html.slice(htmlEnd + '</html>'.length).trim();
+	return JSON.parse(jsonStr.trim())
+}
 
 async function fetch_qualities(default_url) {
 	let iframeLinks = []
 	try {
-		// let response = await axios.get(default_url,{ httpsAgent: agent })
 		let response = await axios.get(default_url)
 		let resolutions = response.data.match(/(RESOLUTION=)(.*)(\s*?)(\s*.*)/g)
 		resolutions?.forEach((str) => {
+			
 			let quality = str.split('\n')[0].split('x')[1]
+			
 			let url = str.split('\n')[1]
-			if (str.split('\n')[1].includes('index'))
+			//if (str.split('\n')[1].includes('index')) {
+			if (url.includes('.m3u8')) {
 				iframeLinks.push({
 					is_m3u8: url.includes('m3u8'),
 					quality,
 					url,
 				})
+			}
 		})
 
 		return iframeLinks
