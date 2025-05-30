@@ -3,6 +3,7 @@
 const { execSync } = require('child_process')
 const path = require('path')
 const axios = require('axios')
+const https = require('https');
 
 class EmbedSources {
 	// constructor(sources = [], tracks = [], t = 0, server = 0) {
@@ -55,8 +56,9 @@ const handleEmbed = async (embedUrl, referrer) => {
 		)
 
 		let json_out = JSON.parse(output.trim())
+		console.log(json_out)
 		let m3u8_links = await fetch_qualities(json_out['sources'][0]['file'])
-		//console.log(m3u8_links)
+		console.log(m3u8_links)
 		return {
 			m3u8_links,
 			subtitles: json_out['tracks'],
@@ -67,11 +69,14 @@ const handleEmbed = async (embedUrl, referrer) => {
 	}
 }
 
+const agent = new https.Agent({  
+  rejectUnauthorized: false
+});
+
 async function fetch_qualities(default_url) {
-	//const test = 'RESOLUTION=1920x1080,FRAME-RATE=23.974,CODECS'
 	let iframeLinks = []
 	try {
-		let response = await axios.get(default_url)
+		let response = await axios.get(default_url,{ httpsAgent: agent })
 		let resolutions = response.data.match(/(RESOLUTION=)(.*)(\s*?)(\s*.*)/g)
 		resolutions?.forEach((str) => {
 			let quality = str.split('\n')[0].split('x')[1]
