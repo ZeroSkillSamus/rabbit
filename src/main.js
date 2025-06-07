@@ -51,7 +51,7 @@ app.get("/embed", async (req, res) => {
 
 // For Vercel, we export the app instead of starting the server directly
 if (process.env.NODE_ENV !== "production") {
-  const PORT = process.env.PORT || 5000;
+  const PORT = process.env.PORT || 3000;
   app.listen(PORT, "0.0.0.0", () => {
     logger.info(`Server started on http://localhost:${PORT}`);
   });

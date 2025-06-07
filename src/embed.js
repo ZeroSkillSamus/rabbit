@@ -80,8 +80,13 @@ function getJsonFromHTML(html) {
 
 async function fetch_qualities(default_url) {
   let iframeLinks = [];
+  console.log(default_url);
   try {
-    let response = await axios.get(default_url);
+    let response = await axios.get(default_url, {
+      headers: {
+        Referer: "https://kerolaunochan.live/",
+      },
+    });
     let resolutions = response.data.match(/(RESOLUTION=)(.*)(\s*?)(\s*.*)/g);
     resolutions?.forEach((str) => {
       let quality = str.split("\n")[0].split("x")[1];
