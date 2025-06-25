@@ -75,17 +75,17 @@ const handleEmbed = async (embedUrl, referrer) => {
       },
     });
     let source = newResponse.data.sources;
+    //console.log(source);
     let decrypted = CryptoJS.AES.decrypt(source, key);
     let extract = JSON.parse(decrypted.toString(CryptoJS.enc.Utf8));
     let m3u8_links = await fetch_qualities(extract[0].file);
-
     return {
       headers,
       m3u8_links,
-      subtitles: newResponse["tracks"],
+      subtitles: newResponse.data["tracks"],
     };
   } catch (error) {
-    console.error("Error in handleEmbed:as", error);
+    //console.error("Error in handleEmbed:as", error);
     return new EmbedSources();
   }
 };
