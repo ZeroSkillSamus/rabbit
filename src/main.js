@@ -5,6 +5,7 @@ const express = require("express");
 const morgan = require("morgan");
 const { initLogging, logError, requestStats } = require("./logging");
 const { handleEmbed } = require("./embed");
+const { MegaCloud } = require("./megacloud.js");
 
 const app = express();
 const logger = initLogging();
@@ -45,13 +46,14 @@ app.get("/embed", async (req, res) => {
     });
   }
 
-  const embedSources = await handleEmbed(embed_url, referrer);
+  //const embedSources = await handleEmbed(embed_url, referrer);
+  const embedSources = await MegaCloud.extract(embed_url, referrer);
   res.json(embedSources);
 });
 
 // For Vercel, we export the app instead of starting the server directly
 if (process.env.NODE_ENV !== "production") {
-  const PORT = process.env.PORT || 5000;
+  const PORT = process.env.PORT || 3000;
   app.listen(PORT, "0.0.0.0", () => {
     logger.info(`Server started on http://localhost:${PORT}`);
   });
