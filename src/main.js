@@ -6,7 +6,7 @@ const morgan = require("morgan");
 const { initLogging, logError, requestStats } = require("./logging");
 const { handleEmbed } = require("./embed");
 const { MegaCloud } = require("./megacloud.js");
-
+const { extract_videostr } = require("./videostr.js");
 const app = express();
 const logger = initLogging();
 
@@ -48,6 +48,19 @@ app.get("/embed", async (req, res) => {
 
   //const embedSources = await handleEmbed(embed_url, referrer);
   const embedSources = await MegaCloud.extract(embed_url, referrer);
+  res.json(embedSources);
+});
+
+app.get("/embed2", async (req, res) => {
+  const { embed_url, referrer } = req.query;
+  if (!embed_url || !referrer) {
+    return res.status(400).json({
+      error: "Missing required parameters: embed_url and referrer",
+    });
+  }
+
+  //const embedSources = await handleEmbed(embed_url, referrer);
+  const embedSources = await extract_videostr(embed_url);
   res.json(embedSources);
 });
 

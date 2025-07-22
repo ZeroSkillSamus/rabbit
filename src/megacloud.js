@@ -146,6 +146,7 @@ class MegaCloud {
           token ? `&_k=${token}` : ""
         }`;
 
+        console.log(apiUrl);
         const headers = {
           Accept: "*/*",
           "X-Requested-With": "XMLHttpRequest",
@@ -162,6 +163,7 @@ class MegaCloud {
             // Prefer the "vidstr" key (matches Videostr extractor); fall back to legacy field names if present
             const password =
               keyData?.vidstr ?? keyData?.rabbit ?? keyData?.rabbitstream?.key;
+
             if (password) {
               const decrypted = decryptOpenSSL(data.sources, password);
               const parsed = JSON.parse(decrypted);
@@ -186,7 +188,6 @@ class MegaCloud {
 
         return extractedData;
       } catch (innerErr) {
-        console.log(innerErr);
         console.error(`Error in getSources: ${innerErr.message}`);
         if (innerErr.message.includes("UTF-8")) {
           console.log("Handling UTF-8 error gracefully");
