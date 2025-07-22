@@ -52,8 +52,8 @@ app.get("/embed", async (req, res) => {
 });
 
 app.get("/embed2", async (req, res) => {
-  const { embed_url, referrer } = req.query;
-  if (!embed_url || !referrer) {
+  const { embed_url } = req.query;
+  if (!embed_url) {
     return res.status(400).json({
       error: "Missing required parameters: embed_url and referrer",
     });
